@@ -6,9 +6,10 @@ const user = (state, action) => {
 			}
 
 			return Object.assign({}, state, {
-				isSold: true
+				isSold: true,
+				soldValue: state.currentBid
 			});
-		case 'SET_BID_STARTED' :
+		case 'SET_BID_STARTED_FOR_PLAYER' :
 			if(state.id !== action.id) {
 				return state;
 			}
@@ -24,7 +25,7 @@ const user = (state, action) => {
 			return Object.assign({}, state, {
 				currentBid: action.value
 			});
-		case 'SET_TEAM_ID' :
+		case 'SET_TEAM_ID_FOR_PLAYER' :
 			if(state.id !== action.id) {
 				return state;
 			}
@@ -70,6 +71,7 @@ let initializeUsers = () => {
 			userImage: 'abhinav',
 			userDesc: 'desc',
 			isSold : false,
+			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
 			teamId: null
@@ -82,6 +84,7 @@ let initializeUsers = () => {
 			userImage: 'jalaj',
 			userDesc: 'desc',
 			isSold : false,
+			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
 			teamId: null
@@ -94,6 +97,7 @@ let initializeUsers = () => {
 			userImage: 'madan',
 			userDesc: 'desc',
 			isSold : false,
+			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
 			teamId: null
