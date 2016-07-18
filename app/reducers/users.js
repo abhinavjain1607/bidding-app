@@ -55,6 +55,8 @@ const users = (state = initializeUsers(), action) => {
 				user(u, action)
 			);
 	}
+
+	return state;
 };
 
 /*

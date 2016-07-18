@@ -21,6 +21,8 @@ let initializeTeams = () => {
 			teamName: 'RPS'
 		}
 	];
+
+	return state;
 };
 
 export default teams;

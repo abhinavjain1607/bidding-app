@@ -6,10 +6,14 @@ const { createStore } = Redux;
 import appReducer from './reducers/appReducer';
 import App from './components/App';
 
+let store = createStore(appReducer);
+
 const TodoApp = () => (
-	<Provider store={createStore(appReducer)}>
+	<Provider store={store}>
 		<App />
 	</Provider>
 );
+
+console.log(store.getState());
 
 ReactDOM.render(<TodoApp/>, document.getElementById('app'));

@@ -1,5 +1,5 @@
-import todos from './users';
-import visibilityFilter from './teams';
+import users from './users';
+import teams from './teams';
 var Redux = require('redux');
 
 const { combineReducers } = Redux;
