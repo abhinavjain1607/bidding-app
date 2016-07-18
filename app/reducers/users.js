@@ -1,7 +1,8 @@
 const user = (state, action) => {
 	switch(action.type) {
 		case 'SET_SOLD' : 
-			if(state.id !== action.id) {
+
+			if(state.userId !== action.id) {
 				return state;
 			}
 
@@ -10,7 +11,7 @@ const user = (state, action) => {
 				soldValue: state.currentBid
 			});
 		case 'SET_BID_STARTED_FOR_PLAYER' :
-			if(state.id !== action.id) {
+			if(state.userId !== action.id) {
 				return state;
 			}
 
@@ -18,7 +19,7 @@ const user = (state, action) => {
 				bidStarted: true
 			});
 		case 'SET_CURRENT_BID' :
-			if(state.id !== action.id) {
+			if(state.userId !== action.id) {
 				return state;
 			}
 
@@ -26,7 +27,7 @@ const user = (state, action) => {
 				currentBid: action.value
 			});
 		case 'SET_TEAM_ID_FOR_PLAYER' :
-			if(state.id !== action.id) {
+			if(state.userId !== action.id) {
 				return state;
 			}
 
@@ -72,7 +73,7 @@ let initializeUsers = () => {
 			userRole: 1,
 			userImage: 'abhinav',
 			userDesc: 'desc',
-			isSold : false,
+			isSold : true,
 			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
