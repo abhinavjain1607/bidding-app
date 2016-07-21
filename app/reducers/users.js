@@ -1,7 +1,6 @@
 const user = (state, action) => {
 	switch(action.type) {
-		case 'SET_SOLD' : 
-
+		case 'SET_SOLD' :
 			if(state.userId !== action.id) {
 				return state;
 			}
@@ -39,15 +38,15 @@ const user = (state, action) => {
 
 const users = (state = initializeUsers(), action) => {
 	switch(action.type) {
-		case 'SET_SOLD' : 
+		case 'SET_SOLD' :
 			return state.map( u =>
 				user(u, action)
 			);
-		case 'SET_BID_STARTED' : 
+		case 'SET_BID_STARTED' :
 			return state.map( u =>
 				user(u, action)
 			);
-		case 'SET_CURRENT_BID' : 
+		case 'SET_CURRENT_BID' :
 			return state.map( u =>
 				user(u, action)
 			);
@@ -77,7 +76,8 @@ let initializeUsers = () => {
 			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
-			teamId: null
+			teamId: null,
+			isCurrentlyOngoing: 1
 		},
 		{
 			userId: 2,
@@ -90,7 +90,8 @@ let initializeUsers = () => {
 			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
-			teamId: null
+			teamId: null,
+			isCurrentlyOngoing: 0
 		},
 		{
 			userId: 3,
@@ -103,7 +104,8 @@ let initializeUsers = () => {
 			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
-			teamId: null
+			teamId: null,
+			isCurrentlyOngoing: 0
 		}
 	];
 };
