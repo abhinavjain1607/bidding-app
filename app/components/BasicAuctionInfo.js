@@ -2,17 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 const setSoldPlayer = require('../actions').setSoldPlayer;
 import CSSModules from 'react-css-modules';
-import Paper from 'material-ui/Paper';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-// import commonStyles from './commonStyles.sass';
-
-const style = {
-  display: 'inline-block',
-  float: 'left',
-  margin: '16px 32px 16px 0',
-};
-
+import commonStyles from './commonStyles.sass';
+console.log(commonStyles);
 class BasicAuctionInfo extends React.Component {
 	constructor(props) {
 		super(props);
@@ -38,20 +29,26 @@ class BasicAuctionInfo extends React.Component {
 	}
 
 	render() {
+		console.log('rendering auction');
 		return (
 			<div>
-				<Paper style={style}>
-			      <Menu width={200}>
-			        <MenuItem primaryText="Total Players " secondaryText={ this.getTotalNoOfPlayers() }/>
-			        <MenuItem primaryText="Sold Players" secondaryText={ this.getSoldPlayers() }/>
-			        <MenuItem primaryText="Remaining Players" secondaryText={ this.getTotalNoOfPlayers() - this.getSoldPlayers() }/>
-			      </Menu>
-			    </Paper>
+				<p styleName="header">Total Players are : { this.getTotalNoOfPlayers() }</p>
+				<p styleName="header">Sold Players are : { this.getSoldPlayers() }</p>
+				<p styleName="header">Remaining Players are : { this.getTotalNoOfPlayers() - this.getSoldPlayers() }</p>
+				<form onSubmit={e => {
+			        e.preventDefault()
+			        this.dispatch(setSoldPlayer(2))
+			    }}>
+			        <button type="submit">
+			          	Setting 2nd player as sold
+			        </button>
+		      	</form>
 			</div>
 		);
 	}
 }
 
-export default CSSModules(connect((state) => {
+
+export default connect((state) => {
 	return state;
-})(BasicAuctionInfo), null, {allowMultiple: true});
+})(CSSModules(BasicAuctionInfo, commonStyles, {allowMultiple: true}));

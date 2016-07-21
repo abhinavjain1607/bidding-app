@@ -7,7 +7,8 @@ const user = (state, action) => {
 
 			return Object.assign({}, state, {
 				isSold: true,
-				soldValue: state.currentBid
+				soldValue: action.currentBid,
+				managerId:action.managerId
 			});
 		case 'SET_BID_STARTED_FOR_PLAYER' :
 			if(state.userId !== action.id) {
@@ -31,7 +32,7 @@ const user = (state, action) => {
 			}
 
 			return Object.assign({}, state, {
-				teamId: action.teamId
+				managerId: action.managerId
 			});
 	}
 };
@@ -76,7 +77,7 @@ let initializeUsers = () => {
 			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
-			teamId: null,
+			managerId: null,
 			isCurrentlyOngoing: 1
 		},
 		{
@@ -90,7 +91,7 @@ let initializeUsers = () => {
 			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
-			teamId: null,
+			managerId: null,
 			isCurrentlyOngoing: 0
 		},
 		{
@@ -104,7 +105,7 @@ let initializeUsers = () => {
 			soldValue: null,
 			bidStarted : false,
 			currentBid: null,
-			teamId: null,
+			managerId: null,
 			isCurrentlyOngoing: 0
 		}
 	];

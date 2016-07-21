@@ -13,8 +13,20 @@ const manager = (state, action) => {
 				bankBalance: state.bankBalance - state.currentBid,
         currentBalance: state.bankBalance,
         currentBid: 0,
-        minimumBalance:state.minimumBalance - 10
+        minimumBalance:state.minimumBalance - 10,
+				investedUsers: [
+														...state.investedUsers,
+														{
+															userid: action.userid,
+															value: action.currentBid
+														}
+
+										]
 			});
+
+			return [
+
+			]
 
 		case 'SET_CURRENT_BID' :
 			if(state.managerId !== action.managerId) {

@@ -1,12 +1,15 @@
 import users from './users';
-import teams from './teams';
+import managers from './managers';
+import currentUser from './currentUser';
+
 var Redux = require('redux');
 
 const { combineReducers } = Redux;
 
 const appReducer = combineReducers({
+	currentUser
 	users,
-	teams
+	managers
 });
 
 export default appReducer;
