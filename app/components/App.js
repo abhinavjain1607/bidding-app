@@ -6,15 +6,16 @@ import ManagersBidOnPlayer from './ManagersBidOnPlayer';
 import ManagersAndTeams from './ManagersAndTeams';
 
 let App = () => {
+	console.log('render app');
 	return (
 		<div>
 			<div>
 				<BasicAuctionInfo />
-				{/*<AuctionedPlayer />
-				<ManagersBidOnPlayer />
+				<AuctionedPlayer />
+				{/*<ManagersBidOnPlayer />*/}
 			</div>
 			<div>
-				<ManagersAndTeams />*/}
+				{/*<ManagersAndTeams />*/}
 			</div>
 		</div>
 	)

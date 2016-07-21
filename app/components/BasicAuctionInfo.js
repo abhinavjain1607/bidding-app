@@ -2,7 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 const setSoldPlayer = require('../actions').setSoldPlayer;
 import CSSModules from 'react-css-modules';
-import commonStyles from './commonStyles.sass';
+import Paper from 'material-ui/Paper';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+// import commonStyles from './commonStyles.sass';
+
+const style = {
+  display: 'inline-block',
+  float: 'left',
+  margin: '16px 32px 16px 0',
+};
 
 class BasicAuctionInfo extends React.Component {
 	constructor(props) {
@@ -29,27 +38,20 @@ class BasicAuctionInfo extends React.Component {
 	}
 
 	render() {
-		console.log('rendering auction');
 		return (
 			<div>
-				<div styleName="header">Total Players are : { this.getTotalNoOfPlayers() }</div>
-				<div styleName="header">Sold Players are : { this.getSoldPlayers() }</div>
-				<div styleName="header">Remaining Players are : { this.getTotalNoOfPlayers() - this.getSoldPlayers() }</div>
-				<form onSubmit={e => {
-			        e.preventDefault()
-			        this.dispatch(setSoldPlayer(2))
-			    }}>
-			        <button type="submit">
-			          	Setting 2nd player as sold
-			        </button>
-		      	</form>
+				<Paper style={style}>
+			      <Menu width={200}>
+			        <MenuItem primaryText="Total Players " secondaryText={ this.getTotalNoOfPlayers() }/>
+			        <MenuItem primaryText="Sold Players" secondaryText={ this.getSoldPlayers() }/>
+			        <MenuItem primaryText="Remaining Players" secondaryText={ this.getTotalNoOfPlayers() - this.getSoldPlayers() }/>
+			      </Menu>
+			    </Paper>
 			</div>
 		);
 	}
 }
 
-BasicAuctionInfo = connect((state) => {
+export default CSSModules(connect((state) => {
 	return state;
-})(BasicAuctionInfo);
-
-export default CSSModules(BasicAuctionInfo, commonStyles, {allowMultiple: true});;
+})(BasicAuctionInfo), null, {allowMultiple: true});
