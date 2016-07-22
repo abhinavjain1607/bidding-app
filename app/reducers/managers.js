@@ -42,7 +42,7 @@ const manager = (state, action) => {
       }
 
 			return Object.assign({}, state, {
-        currentBalance: state.bankBalance - action.value
+        currentBalance: state.bankBalance - action.value,
 				currentBid: action.value
       });
 		case 'SET_TEAM_ID_FOR_PLAYER' :

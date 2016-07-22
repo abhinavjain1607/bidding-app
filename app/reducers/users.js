@@ -73,7 +73,7 @@ let initializeUsers = () => {
 			userRole: 1,
 			userImage: 'abhinav',
 			userDesc: 'desc',
-			isSold : true,
+			isSold : false,
 			soldValue: null,
 			bidStarted : false,
 			currentBid: null,

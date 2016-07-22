@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 // import commonStyles from './commonStyles.sass';
 import Paper from 'material-ui/Paper';
-import Menu from 'material-ui/Menu';
+import UserDisplay from './auctionedPlayer/UserDisplay';
+import ManagerSoldDisplay from './auctionedPlayer/ManagerSoldDisplay';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
-import ActionAndroid from 'material-ui/svg-icons/action/thumb-up';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import IconPrevious from 'material-ui/svg-icons/av/skip-previous';
+import IconNext from 'material-ui/svg-icons/av/skip-next';
 
 const style = {
   display: 'inline-block',
@@ -19,71 +19,53 @@ const style = {
   'textAlign': 'center',
 };
 
-const style1 = {
-  margin: '5px',
-  width: '150px',
-  float: 'left',
-  height: '150px'
-};
-
 const style2 = {
-  margin: '5px',
-  width: '100%',
+  margin: '65px 10px',
+  width: '15px',
+  float: 'left',
 };
 
-const spanStyle = {
-	'width': '33%',
-	float: 'left',
-	'height': '100%'
-}
-
-const spanStyle1 = {
-	...spanStyle,
-	'width': '33%'
-}
-
-const spanStyle2 = {
-	...spanStyle,
-	'width': '15%'
-}
-const spanStyle3 = {
-	...spanStyle,
-	'width': '10%',
-}
-
+const style3 = {
+	...style2,
+	marginLeft: '45px'
+};
 
 class AuctionedPlayer extends React.Component {
 	constructor(props) {
 		super(props);
-		this.currentUser = 1;
+		this.state = {
+			currentUserIndex: 0,
+			currentUser: props.users[0]
+		};
 		this.dispatch = props.dispatch;
 		this.imageFolder = '../app/assets/images/';
+		this.selectedManagerID = 1;
+	}
+
+	click() {
+
+	}
+
+	getCurrentUser() {
+		return this.props.users[this.state.currentUserIndex];
 	}
 
 	render() {
+		let currentUser = this.getCurrentUser();
 		return (
 			<Paper style={style}>
-				<div style={spanStyle1}>
-				</div>
-				<div style={spanStyle2}>
-					<img style={style1} src={this.imageFolder + '/' + this.currentUser + '.jpg'}></img>
-				</div>
-				<div style={spanStyle3}>
-					<SelectField value={1} style={style2}>
-			          <MenuItem value={1} primaryText="Kalyan" />
-			          <MenuItem value={2} primaryText="Rajiv" />
-			          <MenuItem value={3} primaryText="Varun" />
-			          <MenuItem value={4} primaryText="Amruth" />
-			          <MenuItem value={5} primaryText="Vinay" />
-			        </SelectField>
-					<FlatButton label="Sold"
-	      						labelPosition="before"
+				<FlatButton style={style2}
 	      						secondary={true}
-	      						icon={<ActionAndroid />}>
-	      			</FlatButton>
-				</div>
-					
-					
+	      						onClick={this.click.bind(this)}
+	      						icon={<IconPrevious />}>
+	      		</FlatButton>
+				<UserDisplay currentUser={currentUser}/>
+				<ManagerSoldDisplay currentUser={currentUser} dispatch={this.props.dispatch} managers={this.props.managers}/>
+				<FlatButton style={style3}
+	      						secondary={true}
+	      						onClick={this.click.bind(this)}
+	      						icon={<IconNext />}>
+	      		</FlatButton>
 			</Paper>
 		);
 	}

@@ -1,7 +1,10 @@
-const setSoldPlayer = (id) => {
+const setSoldPlayer = (id, value, managerId) => {
+  console.log(id, value, managerId);
   return {
     type: 'SET_SOLD',
-    id
+    id,
+    value,
+    managerId
   }
 }
 

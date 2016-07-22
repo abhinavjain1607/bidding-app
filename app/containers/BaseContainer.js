@@ -5,7 +5,8 @@ import App from '../components/App';
 const mapStateToProps = (state) => {
 	return {
 		users: state.users,
-		teams: state.teams
+		teams: state.teams,
+		managers: state.managers
 	};
 };
 

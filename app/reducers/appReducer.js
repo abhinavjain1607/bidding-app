@@ -7,7 +7,7 @@ var Redux = require('redux');
 const { combineReducers } = Redux;
 
 const appReducer = combineReducers({
-	currentUser
+	currentUser,
 	users,
 	managers
 });
