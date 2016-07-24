@@ -1,15 +1,18 @@
 import users from './users';
 import managers from './managers';
-import currentUser from './currentUser';
+import rounds from './rounds';
+import biddingState from './biddingState';
 
 var Redux = require('redux');
 
 const { combineReducers } = Redux;
 
 const appReducer = combineReducers({
-	currentUser,
+	rounds,
 	users,
-	managers
+	managers,
+	biddingState
 });
+
 
 export default appReducer;

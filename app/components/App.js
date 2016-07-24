@@ -5,17 +5,22 @@ import AuctionedPlayer from './AuctionedPlayer';
 import ManagersBidOnPlayer from './ManagersBidOnPlayer';
 import ManagersAndTeams from './ManagersAndTeams';
 
+const containerStyle = {
+  marginLeft: '5px',
+  width: '100%',
+  height: '100%'
+};
+
 let App = () => {
-	console.log('render app');
 	return (
-		<div>
+		<div style={containerStyle}>
 			<div>
 				<BasicAuctionInfo />
 				<AuctionedPlayer />
 				{/*<ManagersBidOnPlayer />*/}
 			</div>
 			<div>
-				{/*<ManagersAndTeams />*/}
+				<ManagersAndTeams />
 			</div>
 		</div>
 	)

@@ -20,21 +20,13 @@ class BasicAuctionInfo extends React.Component {
 	}
 
 	getTotalNoOfPlayers() {
-		var total = 0;
-		this.props.users.map( (user) => {
-			total++;
-		});
-
-		return total;
+		console.log(this.props);
+		return this.props.rounds[this.props.biddingState.currentRoundId]['allPlayers'].length
 	}
 
 	getSoldPlayers() {
-		var total = 0;
-		this.props.users.map( (user) => {
-			user.isSold && total++;
-		});
-
-		return total;
+		var length = this.props.rounds[this.props.biddingState.currentRoundId]['soldPlayers'].length;
+		return length > 0 ? length : '0';
 	}
 
 	render() {

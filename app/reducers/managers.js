@@ -3,8 +3,8 @@ const manager = (state, action) => {
 		case 'SET_SOLD' :
 			if(state.managerId !== action.managerId) {
         return Object.assign({}, state, {
-  			  currentBalance: state.bankBalance,
-          currentBid: 0,
+			currentBalance: state.bankBalance,
+      		currentBid: 0,
         });
 
 			}

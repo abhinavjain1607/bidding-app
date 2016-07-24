@@ -9,6 +9,8 @@ import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import IconPrevious from 'material-ui/svg-icons/av/skip-previous';
 import IconNext from 'material-ui/svg-icons/av/skip-next';
+let showNextPlayer = require('../actions').showNextPlayer;
+let showPrevPlayer = require('../actions').showPrevPlayer;
 
 const style = {
   display: 'inline-block',
@@ -21,7 +23,7 @@ const style = {
 
 const style2 = {
   margin: '65px 10px',
-  width: '15px',
+  width: '130px',
   float: 'left',
 };
 
@@ -33,37 +35,52 @@ const style3 = {
 class AuctionedPlayer extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
+		/*this.state = {
 			currentUserIndex: 0,
 			currentUser: props.users[0]
-		};
+		};*/
 		this.dispatch = props.dispatch;
 		this.imageFolder = '../app/assets/images/';
 		this.selectedManagerID = 1;
 	}
 
-	click() {
+	clickPrev() {
+		this.dispatch(showPrevPlayer());
+	}
 
+	clickNext() {
+		this.dispatch(showNextPlayer());
 	}
 
 	getCurrentUser() {
-		return this.props.users[this.state.currentUserIndex];
+		let currentUser = null;
+		this.props.users.map( (user) => {
+			if(user.userId === this.props.biddingState.currentPlayerId) {
+				currentUser = user;
+			}
+		});
+
+		return currentUser;
 	}
 
 	render() {
-		let currentUser = this.getCurrentUser();
+		var user = this.getCurrentUser();
 		return (
 			<Paper style={style}>
 				<FlatButton style={style2}
+								label="Prev"
+	      						labelPosition="after"
 	      						secondary={true}
-	      						onClick={this.click.bind(this)}
+	      						onClick={this.clickPrev.bind(this)}
 	      						icon={<IconPrevious />}>
 	      		</FlatButton>
-				<UserDisplay currentUser={currentUser}/>
-				<ManagerSoldDisplay currentUser={currentUser} dispatch={this.props.dispatch} managers={this.props.managers}/>
+				<UserDisplay currentUser={this.getCurrentUser()}/>
+				<ManagerSoldDisplay dispatch={this.props.dispatch} currentRoundId={this.props.biddingState.currentRoundId} currentUser={this.getCurrentUser()} managers={this.props.managers}/>
 				<FlatButton style={style3}
+								label="Next"
+	      						labelPosition="before"
 	      						secondary={true}
-	      						onClick={this.click.bind(this)}
+	      						onClick={this.clickNext.bind(this)}
 	      						icon={<IconNext />}>
 	      		</FlatButton>
 			</Paper>

@@ -23,6 +23,7 @@ const spanStyle = {
 
 const spanStyle3 = {
 	...spanStyle,
+	marginLeft: '50px',
 	'width': '10%',
 }
 
@@ -51,13 +52,13 @@ class ManagerSoldDisplay extends React.Component {
 	};
 
 	soldPlayer() {
-		console.log(this.state.soldInputFieldValue);
 		this.dispatch(setSoldPlayer(
 			this.props.currentUser.userId,
 			parseInt(this.state.soldInputFieldValue),
-			this.state.selectedManagerID
+			this.state.selectedManagerID,
+			this.props.currentRoundId
 		));
-		this.setState({soldInputFieldValue: 0});
+		// this.setState({soldInputFieldValue: 0});
 	}
 
 	bindInputField(node) {
