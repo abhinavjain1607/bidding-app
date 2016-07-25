@@ -4,8 +4,9 @@ import CSSModules from 'react-css-modules';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
-const style1 = {
-  margin: '5px',
+const imageStyle = {
+  margin: '0px',
+  marginLeft: '30px',
   width: '150px',
   float: 'left',
   height: '150px'
@@ -13,7 +14,7 @@ const style1 = {
 
 const menuStyle = {
 	margin: '5px',
-	width: '200px',
+	width: '230px',
 	float: 'left',
 	height: '150px',
 	'textAlign': 'left',
@@ -21,7 +22,7 @@ const menuStyle = {
 };
 
 const spanStyle2 = {
-	'width': '33%',
+	'width': '41%',
 	float: 'left',
 	height: '100%',
 	background: 'beige'
@@ -29,6 +30,19 @@ const spanStyle2 = {
 
 const menuItemStyle = {
 	lineHeight: '35px'
+};
+
+const menuItemStyleSold = {
+	...menuItemStyle,
+	textAlign: 'center'
+};
+
+const redText = {
+	color: 'red'
+};
+
+const greenText = {
+	color: 'green'
 };
 
 class UserDisplay extends React.Component {
@@ -39,17 +53,31 @@ class UserDisplay extends React.Component {
 		this.imageFolder = '../app/assets/images/';
 	}
 
+	getBold(data) {
+		return <b>{data}</b>
+	}
+
 	render() {
 		var user = this.props.currentUser;
+
+		let checkIfSoldItem = () => {
+			let text = '';
+			if(!user.isSold) text = <light>NA</light>;
+			else
+			text = this.getBold(user.soldValue + ' Crore(s)');
+			return text;
+		};
+
 		return (
 				<div style={spanStyle2}>
 					<Menu style={menuStyle}>
 				        <MenuItem primaryText="Name" secondaryText={user.shortName} innerDivStyle={menuItemStyle}/>
-				        <MenuItem primaryText="Base value" secondaryText={user.userBaseValue} innerDivStyle={menuItemStyle}/>
-				        <MenuItem primaryText="Is sold" secondaryText={user.isSold == true ? 'Yes':'False'} innerDivStyle={menuItemStyle}/>
-				        <MenuItem primaryText="Sold value" secondaryText={user.soldValue} innerDivStyle={menuItemStyle}/>
+				        <MenuItem primaryText="Base amount" secondaryText={this.getBold(user.userBaseValue + ' Crore(s)')} innerDivStyle={menuItemStyle}/>
+				        <MenuItem primaryText={user.isSold == true ? <span style={redText}>SOLD</span> : 
+				        						<span style={greenText}>AVAILABLE</span>} innerDivStyle={menuItemStyleSold}/>
+				        <MenuItem primaryText="Sold amount" secondaryText={checkIfSoldItem()} innerDivStyle={menuItemStyle}/>
 				    </Menu>
-					<img style={style1} src={this.imageFolder + '/' + user.userImage }></img>
+					<img style={imageStyle} src={this.imageFolder + '/' + user.userImage }></img>
 				</div>
 		);
 	}

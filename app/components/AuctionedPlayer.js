@@ -15,14 +15,14 @@ let showPrevPlayer = require('../actions').showPrevPlayer;
 const style = {
   display: 'inline-block',
   float: 'left',
-  margin: '16px 32px 16px 0',
+  margin: '0px 32px 8px 0',
   width: '1200px',
-  height: '160px',
+  height: '150px',
   'textAlign': 'center',
 };
 
 const style2 = {
-  margin: '65px 10px',
+  margin: '55px 40px',
   width: '130px',
   float: 'left',
 };

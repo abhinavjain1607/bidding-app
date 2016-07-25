@@ -20,18 +20,46 @@ const style = {
 };
 
 const listItemStyle = {
+	float: 'left',
+	width: '70%',
 	height: '0px',
 };
 
 const listStyle = {
 	paddingTop: '0px',
 	paddingBottom: '5px',
-	minHeight: '240px'
+	minHeight: '260px'
 };
 
 const cardHeaderStyle = {
 	paddingTop: '10px',
 	paddingBottom: '0px'
+};
+
+const titleStyle = {
+	fontSize: '18px'
+};
+
+const subtitleStyle = {
+	fontSize: '15px'
+};
+
+const green = {
+	color: 'green'
+};
+
+const rightPriceStyle = {
+	float: 'left',
+	paddingLeft: '250px',
+    marginTop: '-21px',
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '15px',
+    fontWeight: 'bold',
+    color: 'rgba(0, 0, 0, 0.541176)'
+};
+
+const listDivStyle = {
+	float: 'leftIcon'
 };
 
 class ManagerList extends React.Component {
@@ -43,43 +71,64 @@ class ManagerList extends React.Component {
 	    this.imageFolder = '../app/assets/images/';
 	}
 
-		handleExpandChange = (expanded) => {
+	handleExpandChange = (expanded) => {
 	    this.setState({expanded: expanded});
-	  };
+	};
 
-	  handleToggle = (event, toggle) => {
+	handleToggle = (event, toggle) => {
 	    this.setState({expanded: toggle});
-	  };
+	};
 
-	  handleExpand = () => {
+	handleExpand = () => {
 	    this.setState({expanded: true});
-	  };
+	};
 
-	  handleReduce = () => {
+	handleReduce = () => {
 	    this.setState({expanded: false});
-	  };
+	};
 
-	  render() {
-	  	console.log('yes');
-	  	let listItem = (a) => {
-	  		return <ListItem
-	  					key={a}
+	getUserData(id) {
+		let findUser = null;
+		this.props.users.map( (user) => {
+			if(user.userId == id) {
+				findUser = user;
+			}
+		});
+
+		return findUser;
+	}
+
+	getManagerSubtitle(managerData) {
+		return <span>Current Balance : <b style={green}>{managerData['currentBalance']}</b> ( {managerData['bankBalance']} ) </span>
+	}
+
+	render() {
+		var managerData = this.props.managerData;
+	  	let listItem = (user) => {
+	  		return <span><ListItem
+	  					style={listDivStyle}
+	  					key={user.userId}
 				      	innerDivStyle={listItemStyle}
-				        primaryText="Chelsea Otakan"
-				        leftIcon={<ActionGrade color={pinkA200} />}
-				        rightAvatar={<Avatar src={this.imageFolder + 'abhinav.jpg'} />}
+				        primaryText={user.shortName}
+				        // leftIcon={user.soldValue}
+				        // leftIcon={<ActionGrade color={pinkA200} />}
+				        leftAvatar={<Avatar src={this.imageFolder + user.userImage} />}
 				      />
+				      <span style={rightPriceStyle}>{user.soldValue + ' Crore(s)'}</span>
+				      </span>
 	  	};
-	  	const listItems = [1,2,3,4,5,6].map( (a) => {
-	  		return listItem(a);
+	  	const listItems = managerData['myUsers'].map( (user) => {
+	  		return listItem(this.getUserData(user.userId));
 	  	});
 		  return (
 			<Card style={style} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
 		        <CardHeader
 		          style={cardHeaderStyle}
-		          title="URL Avatar"
-		          subtitle="Subtitle"
-		          avatar={this.imageFolder + 'abhinav.jpg'}
+		          titleStyle={titleStyle}
+		          subtitleStyle={subtitleStyle}
+		          title={managerData['managerName']}
+		          subtitle={this.getManagerSubtitle(managerData)}
+		          avatar={this.imageFolder + managerData['managerImage']}
 		          actAsExpander={true}
 		          showExpandableButton={true}
 		        />

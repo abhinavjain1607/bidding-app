@@ -25,7 +25,7 @@ let showPrevPlayer = () => {
             }
         });
 
-        dispatch(setCurrentPlayer(lastUserId));
+        lastUserId && dispatch(setCurrentPlayer(lastUserId));
     };
 };
 
@@ -38,13 +38,12 @@ let showNextPlayer = () => {
         if(roundData['unSoldPlayers'].length > 0) {
             var nextPlayerId = false;
             let userFound = false;
-            roundData['allPlayers'].map( (userId) => {
+            roundData['unSoldPlayers'].map( (userId) => {
                 if(!userFound) {
                     if(currentPlayerId == userId) {
                         userFound = true;
                     }
-                }else if(!nextPlayerId){   
-                    console.log(userId);
+                }else if(!nextPlayerId){
                     nextPlayerId = userId;
                 }
             });
@@ -52,17 +51,16 @@ let showNextPlayer = () => {
             dispatch(setCurrentPlayer(nextPlayerId));
         } else {
             let newRoundIdFound = false;
-            getState().rounds.map( (roundId) => {
-                if(currentRoundId <= roundId) {
-                    dispatch(setCurrentRound(roundId));
+            getState().rounds.map( (roundData) => {
+                if(!newRoundIdFound && roundData.roundId > currentRoundId) {
+                    dispatch(setCurrentRound(roundData.roundId));
+                    dispatch(setCurrentPlayer(roundData['unSoldPlayers'][0]));
                     newRoundIdFound = true;
                 }
             });
 
             if(!newRoundIdFound) {
-                //all the rounds are completed, going back to first round
-                dispatch(setCurrentRound(1));
-                dispatch(setCurrentPlayer(getState().rounds[0][0]));
+
             }
         }
     };

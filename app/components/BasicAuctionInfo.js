@@ -10,13 +10,31 @@ import MenuItem from 'material-ui/MenuItem';
 const style = {
   display: 'inline-block',
   float: 'left',
-  margin: '16px 32px 16px 0',
+  margin: '0px 32px 8px 0',
+  height: '150px'
 };
+
+const listItemStyle = {
+	marginTop: '-5px'
+};
+
+const listItemStyleCenter = {
+	height: '25px',
+	margin: 0,
+	marginTop: '-15px',
+	padding: 0,
+	textAlign: 'center',
+	color: 'red'
+}
 
 class BasicAuctionInfo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.dispatch = props.dispatch;
+	}
+
+	getBold(data) {
+		return <b>{data}</b>
 	}
 
 	getTotalNoOfPlayers() {
@@ -30,13 +48,15 @@ class BasicAuctionInfo extends React.Component {
 	}
 
 	render() {
+		let roundNumber = this.props.biddingState.currentRoundId + 1;
 		return (
 			<div>
 				<Paper style={style}>
 			      <Menu width={200}>
-			        <MenuItem primaryText="Total Players " secondaryText={ this.getTotalNoOfPlayers() }/>
-			        <MenuItem primaryText="Sold Players" secondaryText={ this.getSoldPlayers() }/>
-			        <MenuItem primaryText="Remaining Players" secondaryText={ this.getTotalNoOfPlayers() - this.getSoldPlayers() }/>
+			        <MenuItem innerDivStyle={listItemStyleCenter} primaryText={this.getBold('Round - ' + roundNumber) }/>
+			        <MenuItem innerDivStyle={listItemStyle} primaryText="Total Players " secondaryText={ this.getTotalNoOfPlayers() }/>
+			        <MenuItem innerDivStyle={listItemStyle} primaryText="Sold Players" secondaryText={ this.getSoldPlayers() }/>
+			        <MenuItem innerDivStyle={listItemStyle} primaryText="Remaining Players" secondaryText={ this.getTotalNoOfPlayers() - this.getSoldPlayers() }/>
 			      </Menu>
 			    </Paper>
 			</div>

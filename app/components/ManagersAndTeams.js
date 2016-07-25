@@ -10,8 +10,8 @@ class ManagersAndTeams extends React.Component {
 	}
 
   render() {
-  	let managers = [1,2,3,4,5,6,7,8].map( (a) => {
-  		return <ManagerList key={a}/>
+  	let managers = this.props.managers.map( (manager) => {
+  		return <ManagerList key={manager.managerId} managerData={manager} users={this.props.users}/>
   	});
     return (
       <div>
