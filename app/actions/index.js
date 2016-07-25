@@ -8,6 +8,16 @@ const setSoldPlayer = (userId, value, managerId, roundId) => {
   }
 }
 
+const setUndoPlayer = (userId, value, managerId, roundId) => {
+  return {
+    type: 'SET_UNSOLD',
+    userId,
+    value,
+    managerId,
+    roundId
+  }
+}
+
 let showPrevPlayer = () => {
     return (dispatch, getState) => {
         var currentRoundId = getState().biddingState.currentRoundId;
@@ -30,15 +40,16 @@ let showPrevPlayer = () => {
 };
 
 let showNextPlayer = () => {
+
     return (dispatch, getState) => {
         var currentRoundId = getState().biddingState.currentRoundId;
         var roundData = getState().rounds[currentRoundId];
         var currentPlayerId = getState().biddingState.currentPlayerId;
-
+        console.log(getState(),currentPlayerId);
         if(roundData['unSoldPlayers'].length > 0) {
             var nextPlayerId = false;
             let userFound = false;
-            roundData['unSoldPlayers'].map( (userId) => {
+            roundData['allPlayers'].map( (userId) => {
                 if(!userFound) {
                     if(currentPlayerId == userId) {
                         userFound = true;
@@ -110,5 +121,6 @@ export {
   setCurrentPlayer,
   setCurrentRound,
   showNextPlayer,
-  showPrevPlayer
+  showPrevPlayer,
+  setUndoPlayer
 };

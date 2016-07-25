@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 const setSoldPlayer = require('../../actions').setSoldPlayer;
+const setUndoPlayer = require('../../actions').setUndoPlayer;
 // import commonStyles from './commonStyles.sass';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
@@ -12,7 +13,8 @@ import IconThumb from 'material-ui/svg-icons/action/thumb-up';
 let showNextPlayer = require('../../actions').showNextPlayer;
 
 const style2 = {
-  margin: '5px',
+  ...fontStyle,
+  margin: '10px',
   width: '100%',
 };
 
@@ -25,10 +27,11 @@ const spanStyle = {
 const spanStyle3 = {
 	...spanStyle,
 	marginLeft: '50px',
-	'width': '10%',
+	'width': '14%',
 }
 
 const textFieldStyle = {
+	...fontStyle,
 	'textAlign': 'center'
 };
 
@@ -37,7 +40,12 @@ const inputStyle = {
 };
 
 const rightLabelStyle = {
+	fontSize: '25px',
 	width: '60%'
+};
+
+const fontStyle = {
+	fontSize: '25px'
 };
 
 class ManagerSoldDisplay extends React.Component {
@@ -76,6 +84,15 @@ class ManagerSoldDisplay extends React.Component {
 		this.dispatch(showNextPlayer());
 	}
 
+	undoPlayer() {
+		this.dispatch(setUndoPlayer(
+			this.props.currentUser.userId,
+			this.props.currentUser.soldValue,
+			this.props.currentUser.managerId,
+			this.props.currentRoundId
+		));
+	}
+
 	getSoldInputFieldValue() {
 		this.soldInputFieldValue = this.props.currentUser.soldValue ? this.props.currentUser.soldValue : this.props.currentUser.userBaseValue;
 	}
@@ -86,15 +103,16 @@ class ManagerSoldDisplay extends React.Component {
 
 	render() {
 		var managersList = this.props.managers.map((manager) => {
-			return <MenuItem key={manager.managerId} value={manager.managerId} primaryText={manager.managerName} />
+			return <MenuItem innerDivStyle={fontStyle} key={manager.managerId} value={manager.managerId} primaryText={manager.managerName} />
 		});
 		return (
 				<div style={spanStyle3}>
-					<SelectField value={this.state.selectedManagerID} style={style2} onChange={this.handleManagerChange.bind(this)}>
+					<SelectField value={this.state.selectedManagerID} labelStyle={fontStyle} style={style2} onChange={this.handleManagerChange.bind(this)}>
 			         	{managersList}
 			        </SelectField>
 			        <span style={style2}>
 				        <TextField
+				        	inputStyle={fontStyle}
 				        	style={textFieldStyle}
 				        	onChange={this.onEnterSoldValue.bind(this)}
 				        	value={this.state.soldInputFieldValue}
@@ -102,14 +120,15 @@ class ManagerSoldDisplay extends React.Component {
 						   	hintText="Price"
 						   	disabled={this.props.currentUser.isSold}
 						/>
-						<span style={rightLabelStyle}>Crore(s)</span><br />
+						<span style={rightLabelStyle}>Crore(s)</span><br/>
 					</span>
 					<FlatButton style={style2}
-								disabled={this.state.deActivateSoldButton || this.props.currentUser.isSold}
-								label="Sell"
+								labelStyle={fontStyle}
+								disabled={false}
+								label={this.props.currentUser.isSold ? 'Undo' : 'Sell'}
 	      						labelPosition="before"
 	      						secondary={true}
-	      						onClick={this.soldPlayer.bind(this)}
+	      						onClick={this.props.currentUser.isSold ? this.undoPlayer.bind(this) : this.soldPlayer.bind(this)}
 	      						icon={<IconThumb />}>
 	      			</FlatButton>
 				</div>

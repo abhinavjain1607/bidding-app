@@ -23,6 +23,28 @@ const round = (state, action) => {
 					...state.unSoldPlayers.slice(index+1)
 				]
 			});
+		case 'SET_UNSOLD' : 
+			if(state.roundId != action.roundId) {
+				return state;
+			}
+
+			let foundIndex = null;
+			state['soldPlayers'].map( (userId, key) => {
+				if(userId == action.userId) {
+					index = key;
+				}
+			})
+			console.log(state);
+			return Object.assign({}, state, {
+				unSoldPlayers: [
+					...state.unSoldPlayers,
+					action.userId
+				],
+				soldPlayers: [
+					...state.soldPlayers.slice(0, index),
+					...state.soldPlayers.slice(index+1)
+				]
+			});
 	}
 
 	return state;
@@ -31,6 +53,10 @@ const round = (state, action) => {
 const rounds = (state = initializeRounds(), action) => {
 	switch(action.type) {
 		case 'SET_SOLD' : 
+			return state.map( (roundState) => {
+				return round(roundState, action);
+			});
+		case 'SET_UNSOLD' : 
 			return state.map( (roundState) => {
 				return round(roundState, action);
 			});
@@ -43,8 +69,8 @@ let initializeRounds = () => {
 	return [
 		{
 			roundId: 0,
-			allPlayers: [1,2,3,4,5,6,7,8],
-			unSoldPlayers: [1,2,3,4,5,6,7,8],
+			allPlayers: [1,8,2,5,7,3,4,19],
+			unSoldPlayers: [1,8,2,5,7,3,4,19],
 			soldPlayers: []
 		},
 		{
@@ -55,20 +81,20 @@ let initializeRounds = () => {
 		},
 		{
 			roundId: 2,
-			allPlayers: [17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
-			unSoldPlayers: [17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
+			allPlayers: [17,18,20,6,21,26,23,29,28,44,31,24,30,27,25,32],
+			unSoldPlayers: [17,18,20,6,21,26,23,29,28,44,31,24,30,27,25,32],
 			soldPlayers: []
 		},
 		{
 			roundId: 3,
-			allPlayers: [33,34,35,36,37,38,39,40],
-			unSoldPlayers: [33,34,35,36,37,38,39,40],
+			allPlayers: [33,34,35,36,37,38],
+			unSoldPlayers: [33,34,35,36,37,38],
 			soldPlayers: []
 		},
 		{
 			roundId: 4,
-			allPlayers: [41,42,43,44,45,46,47,48],
-			unSoldPlayers: [41,42,43,44,45,46,47,48],
+			allPlayers: [41,42,43,22,45,46,47,48],
+			unSoldPlayers: [41,42,43,22,45,46,47,48],
 			soldPlayers: []
 		}
 	];

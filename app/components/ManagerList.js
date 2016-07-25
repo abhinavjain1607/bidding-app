@@ -22,13 +22,13 @@ const style = {
 const listItemStyle = {
 	float: 'left',
 	width: '70%',
-	height: '0px',
+	height: '5px',
 };
 
 const listStyle = {
-	paddingTop: '0px',
+	paddingTop: '5px',
 	paddingBottom: '5px',
-	minHeight: '260px'
+	minHeight: '300px'
 };
 
 const cardHeaderStyle = {
@@ -37,11 +37,12 @@ const cardHeaderStyle = {
 };
 
 const titleStyle = {
-	fontSize: '18px'
+	fontSize: '27px'
 };
 
 const subtitleStyle = {
-	fontSize: '15px'
+	fontSize: '25px',
+	color: 'black'
 };
 
 const green = {
@@ -55,7 +56,7 @@ const rightPriceStyle = {
     fontFamily: 'Roboto, sans-serif',
     fontSize: '15px',
     fontWeight: 'bold',
-    color: 'rgba(0, 0, 0, 0.541176)'
+    // color: 'rgba(0, 0, 0, 0.541176)'
 };
 
 const listDivStyle = {
@@ -102,6 +103,10 @@ class ManagerList extends React.Component {
 		return <span>Current Balance : <b style={green}>{managerData['currentBalance']}</b> ( {managerData['bankBalance']} ) </span>
 	}
 
+	getUserName(user) {
+		return <span>{user.shortName} {user.userRole == 1 ? ' (Cap)' : ''}</span>
+	}
+
 	render() {
 		var managerData = this.props.managerData;
 	  	let listItem = (user) => {
@@ -109,9 +114,8 @@ class ManagerList extends React.Component {
 	  					style={listDivStyle}
 	  					key={user.userId}
 				      	innerDivStyle={listItemStyle}
-				        primaryText={user.shortName}
+				        primaryText={this.getUserName(user)}
 				        // leftIcon={user.soldValue}
-				        // leftIcon={<ActionGrade color={pinkA200} />}
 				        leftAvatar={<Avatar src={this.imageFolder + user.userImage} />}
 				      />
 				      <span style={rightPriceStyle}>{user.soldValue + ' Crore(s)'}</span>
@@ -129,8 +133,8 @@ class ManagerList extends React.Component {
 		          title={managerData['managerName']}
 		          subtitle={this.getManagerSubtitle(managerData)}
 		          avatar={this.imageFolder + managerData['managerImage']}
-		          actAsExpander={true}
-		          showExpandableButton={true}
+		          actAsExpander={false}
+		          showExpandableButton={false}
 		        />
 		        <CardText style={listStyle} expandable={true}>
 		          <List >

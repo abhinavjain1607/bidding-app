@@ -16,14 +16,15 @@ const style = {
   display: 'inline-block',
   float: 'left',
   margin: '0px 32px 8px 0',
-  width: '1200px',
-  height: '150px',
+  width: '1280px',
+  height: '180px',
   'textAlign': 'center',
 };
 
 const style2 = {
-  margin: '55px 40px',
-  width: '130px',
+  margin: '65px 20px',
+  width: '100px',
+  fontSize: '25px',
   float: 'left',
 };
 

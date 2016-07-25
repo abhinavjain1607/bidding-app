@@ -19,23 +19,25 @@ const manager = (state, action) => {
 				]
 			});
 
-		/*case 'SET_CURRENT_BID' :
+		case 'SET_UNSOLD' :
 			if(state.managerId !== action.managerId) {
 				return state;
 			}
-
-      		let currentBidValue = action.value;
-	      	if (  currentBidValue > state.bankBalance - state.minimumBalance) {
-	        	//dispatch action, that this value is not possible, since it has to have minimum amout for other players also
-	      	}
-	      	if ( currentBidValue > state.bankBalance ) {
-	        	//dispatch action, that this value is not possible, since cannot bid more than given
-	      	}
-
-			return Object.assign({}, state, {
-		        currentBalance: state.bankBalance - action.value,
-						currentBid: action.value
-		      });*/
+			console.log(state);
+			let index = null;
+			state.myUsers.map( (user, key) => {
+				if(action.userId == user.userId) {
+					index = key;
+				}
+			});
+			console.log(action.userId, index);
+      		return Object.assign({}, state, {
+      			currentBalance: state.currentBalance + action.value,
+				myUsers: [
+					...state.myUsers.slice(0, index),
+					...state.myUsers.slice(index+1)
+				]
+			});
 
 		/*case 'SET_TEAM_ID_FOR_PLAYER' :
 			if(state.id !== action.id) {
@@ -54,11 +56,11 @@ const managers = (state = initializeManagers(), action) => {
 			return state.map( m =>
 				manager(m, action)
 			);
-	 	/*case 'SET_CURRENT_BID' :
+	 	case 'SET_UNSOLD' :
 			return state.map( m =>
 				manager(m, action)
 			);
-		case 'SET_TEAM_ID' :
+		/*case 'SET_TEAM_ID' :
 			return state.map( m =>
 				manager(m, action)
 			);*/

@@ -10,13 +10,14 @@ const user = (state, action) => {
 				soldValue: action.value,
 				managerId:action.managerId
 			});
-		case 'SET_BID_STARTED_FOR_PLAYER' :
+		case 'SET_UNSOLD' :
 			if(state.userId !== action.userId) {
 				return state;
 			}
 
 			return Object.assign({}, state, {
-				bidStarted: true
+				isSold: false,
+				soldValue: null
 			});
 		case 'SET_CURRENT_BID' :
 			if(state.userId !== action.userId) {
@@ -43,7 +44,7 @@ const users = (state = initializeUsers(), action) => {
 			return state.map( u =>
 				user(u, action)
 			);
-		case 'SET_BID_STARTED' :
+		case 'SET_UNSOLD' :
 			return state.map( u =>
 				user(u, action)
 			);
@@ -141,11 +142,11 @@ let initializeUsers = () => {
 		},
 		{
 			userId: 6,
-			userName: 'Vinay Chilukuri',
-			shortName: 'Vinay C',
-			userBaseValue: captain_basevalue,
-			userRole: 1,
-			userImage: 'Vinay.jpg',
+			userName: 'Ashok Ramnath',
+			shortName: 'Ashok R',
+			userBaseValue: others_basevalue,
+			userRole: 2,
+			userImage: 'ashok.jpg',
 			userDesc: 'desc',
 			isSold : false,
 			soldValue: null,
@@ -183,7 +184,7 @@ let initializeUsers = () => {
 		},
 		{
 			userId: 9,
-			userName: 'Anu Rajiv',
+			userName: 'Anu',
 			shortName: 'Anu Rajiv',
 			userBaseValue: others_basevalue,
 			userRole: 2,
@@ -309,11 +310,11 @@ let initializeUsers = () => {
 		},
 		{
 			userId: 18,
-			userName: 'Ashok Ramnath',
-			shortName: 'Ashok R',
+			userName: 'Vinay Chilukuri',
+			shortName: 'Vinay C',
 			userBaseValue: others_basevalue,
 			userRole: 2,
-			userImage: 'ashok.jpg',
+			userImage: 'VinayC.jpg',
 			userDesc: 'desc',
 			isSold : false,
 			soldValue: null,
@@ -365,11 +366,11 @@ let initializeUsers = () => {
 		},
 		{
 			userId: 22,
-			userName: 'Jalaj Minda',
-			shortName: 'Jalaj',
+			userName: 'Mukesh',
+			shortName: 'Mukesh',
 			userBaseValue: others_basevalue,
 			userRole: 2,
-			userImage: 'jalaj.jpg',
+			userImage: 'Mukesh.jpg',
 			userDesc: 'desc',
 			isSold : false,
 			soldValue: null,
@@ -425,7 +426,7 @@ let initializeUsers = () => {
 			shortName: 'Vinay B',
 			userBaseValue: others_basevalue,
 			userRole: 2,
-			userImage: 'Vinay.jpg',
+			userImage: 'VinayB.jpg',
 			userDesc: 'desc',
 			isSold : false,
 			soldValue: null,
@@ -594,34 +595,6 @@ let initializeUsers = () => {
 			userBaseValue: others_basevalue,
 			userRole: 2,
 			userImage: 'sam.jpg',
-			userDesc: 'desc',
-			isSold : false,
-			soldValue: null,
-			bidStarted : false,
-			currentBid: null,
-			managerId: null
-		},
-		{
-			userId: 39,
-			userName: '-------',
-			shortName: '',
-			userBaseValue: others_basevalue,
-			userRole: 2,
-			userImage: '',
-			userDesc: 'desc',
-			isSold : false,
-			soldValue: null,
-			bidStarted : false,
-			currentBid: null,
-			managerId: null
-		},
-		{
-			userId: 40,
-			userName: '--------',
-			shortName: '',
-			userBaseValue: others_basevalue,
-			userRole: 2,
-			userImage: '',
 			userDesc: 'desc',
 			isSold : false,
 			soldValue: null,

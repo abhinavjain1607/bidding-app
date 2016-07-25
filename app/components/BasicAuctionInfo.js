@@ -11,17 +11,19 @@ const style = {
   display: 'inline-block',
   float: 'left',
   margin: '0px 32px 8px 0',
-  height: '150px'
+  height: '180px'
 };
 
 const listItemStyle = {
-	marginTop: '-5px'
+	// marginTop: '-5px'
+	fontSize: '23px'
 };
 
 const listItemStyleCenter = {
+	...listItemStyle,
 	height: '25px',
 	margin: 0,
-	marginTop: '-15px',
+	// marginTop: '-15px',
 	padding: 0,
 	textAlign: 'center',
 	color: 'red'

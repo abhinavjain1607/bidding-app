@@ -7,14 +7,14 @@ import MenuItem from 'material-ui/MenuItem';
 const imageStyle = {
   margin: '0px',
   marginLeft: '30px',
-  width: '150px',
+  width: '180px',
   float: 'left',
-  height: '150px'
+  height: '180px'
 };
 
 const menuStyle = {
 	margin: '5px',
-	width: '230px',
+	width: '430px',
 	float: 'left',
 	height: '150px',
 	'textAlign': 'left',
@@ -22,14 +22,19 @@ const menuStyle = {
 };
 
 const spanStyle2 = {
-	'width': '41%',
+	'width': '55%',
 	float: 'left',
 	height: '100%',
 	background: 'beige'
 };
 
 const menuItemStyle = {
-	lineHeight: '35px'
+	lineHeight: '35px',
+	fontSize: '27px'
+};
+
+const menuItemStyleName = {
+	...menuItemStyle
 };
 
 const menuItemStyleSold = {
@@ -57,6 +62,10 @@ class UserDisplay extends React.Component {
 		return <b>{data}</b>
 	}
 
+	getBoldAndGreen(data) {
+		return <span style={greenText}><b>{data}</b></span>
+	}
+
 	render() {
 		var user = this.props.currentUser;
 
@@ -71,7 +80,7 @@ class UserDisplay extends React.Component {
 		return (
 				<div style={spanStyle2}>
 					<Menu style={menuStyle}>
-				        <MenuItem primaryText="Name" secondaryText={user.shortName} innerDivStyle={menuItemStyle}/>
+				        <MenuItem primaryText="Name" secondaryText={this.getBoldAndGreen(user.shortName)} innerDivStyle={menuItemStyleName}/>
 				        <MenuItem primaryText="Base amount" secondaryText={this.getBold(user.userBaseValue + ' Crore(s)')} innerDivStyle={menuItemStyle}/>
 				        <MenuItem primaryText={user.isSold == true ? <span style={redText}>SOLD</span> : 
 				        						<span style={greenText}>AVAILABLE</span>} innerDivStyle={menuItemStyleSold}/>
